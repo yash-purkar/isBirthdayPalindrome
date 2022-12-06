@@ -42,11 +42,7 @@ function convertDateToString(date) {
   return dateStr;
 }
 
-var date = {
-  day: 31,
-  month: 12,
-  year: 2020
-}
+
 // console.log(convertDateToString(date));
 
 
@@ -126,11 +122,13 @@ function getNextDate(date) {
     if (checkLeapYear(year)) {
       if (day > 29) {
         day = 1;
-        month = month + 1;
+        month++;
       }
-      else if (day > 28) {
-        day = 1;
-        month = month + 1;
+      else {
+        if (day > 28) {
+          day = 1;
+          month++;
+        }
       }
     }
   }
@@ -139,7 +137,7 @@ function getNextDate(date) {
   else {
     if (day > daysInMonth[month - 1]) {
       day = 1;
-      month = month + 1;
+      month++;
     }
   }
 
@@ -147,7 +145,7 @@ function getNextDate(date) {
   if (month > 12) {
     year = year + 1;
     month = 1;
-    day = 1;
+
   }
 
   return {
@@ -160,3 +158,34 @@ function getNextDate(date) {
 
 // console.log(getNextDate(date))
 
+
+
+
+
+// For nextPalindrome date
+function getNextPalindromeDate(date) {
+  var counter = 0;
+  var nextDate = getNextDate(date);
+
+  while (1) {
+    counter = counter + 1;
+    var isPalindrome = getPalindromeForAllDateFormat(date);
+    //It will return true if its palindrome;
+
+    // If isPalindrome return true;
+    if (isPalindrome) {
+      break;
+    }
+    nextDate = getNextDate(nextDate);
+  }
+  return [counter, nextDate];
+}
+
+var date = {
+  day: 31,
+  month: 12,
+  year: 2020
+}
+
+
+// console.log(getNextPalindromeDate(date));
