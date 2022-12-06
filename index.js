@@ -1,3 +1,8 @@
+const inputDate = document.querySelector("#input-date");
+const showBtn = document.querySelector("#showBtn");
+const output = document.querySelector("#output");
+
+
 function reverseStr(str) {
   var listOfChars = str.split('');
   var reverseListOfChars = listOfChars.reverse();
@@ -10,10 +15,7 @@ function reverseStr(str) {
 function isPalindrome(str) {
   var reverse = reverseStr(str);
 
-  if (str === reverse) {
-    return true;
-  }
-  return false;
+  return str === reverse;
 }
 // console.log(isPalindrome("yashhsay"));
 
@@ -25,7 +27,7 @@ function convertDateToString(date) {
     dateStr.day = "0" + date.day;
   }
   else {
-    dateStr.year = date.day.toString();
+    dateStr.day = date.day.toString();
   }
 
   // with month
@@ -55,7 +57,7 @@ function getAllDateFormats(date) {
   var mmddyyyy = dateStr.month + dateStr.day + dateStr.year;
   var yyyymmdd = dateStr.year + dateStr.month + dateStr.day;
   var ddmmyy = dateStr.day + dateStr.month + dateStr.year.slice(-2);
-  var mmddyy = dateStr.month + dateStr.day + dateStr.year.slice(-2);;
+  var mmddyy = dateStr.month + dateStr.day + dateStr.year.slice(-2);
   var yymmdd = dateStr.year.slice(-2) + dateStr.month + dateStr.day;
 
   return [ddmmyyyy, mmddyyyy, yyyymmdd, ddmmyy, mmddyy, yymmdd];
@@ -65,7 +67,7 @@ function getAllDateFormats(date) {
 
 
 
-function getPalindromeForAllDateFormat(date) {
+function checkPalindromeForAllDateFormat(date) {
   var listOfPalindromes = getAllDateFormats(date);
   var palindrome = false;
 
@@ -79,20 +81,23 @@ function getPalindromeForAllDateFormat(date) {
   return palindrome;
 }
 
-// console.log(getPalindromeForAllDateFormat(date));
+// console.log(checkPalindromeForAllDateFormat(date));
 // If the date is palindrome it will return true else it will return false;
 
 
 
 // function for checking leap year or not
 function checkLeapYear(year) {
-  if (year % 100 === 0 || year % 4 === 0) {
+  if (year % 400 === 0) {
     return true;
   }
-  if (year % 4 === 0) {
+  if (year % 100 === 0) {
     return false;
   }
-  return false
+  if (year % 4 === 0) {
+    return true;
+  }
+  return false;
 }
 // console.log(checkLeapYear(2000));
 // console.log(checkLeapYear(2001))
@@ -118,17 +123,15 @@ function getNextDate(date) {
   // This is for only november
   // if month is february , checking leap year
   if (month === 2) {
-
     if (checkLeapYear(year)) {
       if (day > 29) {
         day = 1;
         month++;
       }
-      else {
-        if (day > 28) {
-          day = 1;
-          month++;
-        }
+    } else {
+      if (day > 28) {
+        day = 1;
+        month++;
       }
     }
   }
@@ -143,7 +146,7 @@ function getNextDate(date) {
 
   // If month become 13 we will make it 1 of next year;
   if (month > 12) {
-    year = year + 1;
+    year = year++;
     month = 1;
 
   }
@@ -168,8 +171,8 @@ function getNextPalindromeDate(date) {
   var nextDate = getNextDate(date);
 
   while (1) {
-    counter = counter + 1;
-    var isPalindrome = getPalindromeForAllDateFormat(date);
+    counter++;
+    var isPalindrome = checkPalindromeForAllDateFormat(nextDate);
     //It will return true if its palindrome;
 
     // If isPalindrome return true;
@@ -182,10 +185,41 @@ function getNextPalindromeDate(date) {
 }
 
 var date = {
-  day: 31,
-  month: 12,
-  year: 2020
+  day: 12,
+  month: 03,
+  year: 2130
 }
 
 
 // console.log(getNextPalindromeDate(date));
+
+
+
+
+function handleClick() {
+  // console.log("Yayy I'm working");
+
+  var bodyStr = inputDate.value;
+
+  // We should confirm input field isn't empty.
+  if (bodyStr) {
+    var listOfDate = bodyStr.split('-');
+    var date = {
+      day: Number(listOfDate[2]),
+      month: Number(listOfDate[1]),
+      year: Number(listOfDate[0])
+    }
+
+    var isPalindrome = checkPalindromeForAllDateFormat(date);
+
+    if (isPalindrome) {
+      output.innerText = "Yayyy! Your Birthday is Palindrom🥳";
+    }
+    else {
+      var [counter, nextDate] = getNextPalindromeDate(date);
+      output.innerText = "It's not palindrome, Next palindrome date is " + nextDate.day + "-" + nextDate.month + "-" + nextDate.year + ", You missed it by " + counter + " days😟";
+    }
+  }
+}
+
+showBtn.addEventListener("click", handleClick);
