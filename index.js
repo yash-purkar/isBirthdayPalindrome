@@ -43,8 +43,8 @@ function convertDateToString(date) {
 }
 
 var date = {
-  day: 2,
-  month: 2,
+  day: 31,
+  month: 12,
   year: 2020
 }
 // console.log(convertDateToString(date));
@@ -108,5 +108,55 @@ function checkLeapYear(year) {
 // suppose date is 14-09-2002 it will give 15-09-2002;
 // 31-12-2020 => 01-01-2021
 
+function getNextDate(date) {
+  var day = date.day + 1;
 
+  var month = date.month;
+  var year = date.year;
+
+  var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  // Jan - Dec
+  // 0   - 11 bcz of an array. 
+
+
+  // This is for only november
+  // if month is february , checking leap year
+  if (month === 2) {
+
+    if (checkLeapYear(year)) {
+      if (day > 29) {
+        day = 1;
+        month = month + 1;
+      }
+      else if (day > 28) {
+        day = 1;
+        month = month + 1;
+      }
+    }
+  }
+
+  // If it's not feburary, for other months
+  else {
+    if (day > daysInMonth[month - 1]) {
+      day = 1;
+      month = month + 1;
+    }
+  }
+
+  // If month become 13 we will make it 1 of next year;
+  if (month > 12) {
+    year = year + 1;
+    month = 1;
+    day = 1;
+  }
+
+  return {
+    day: day,
+    month: month,
+    year: year
+  }
+
+}
+
+// console.log(getNextDate(date))
 
