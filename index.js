@@ -17,12 +17,6 @@ function isPalindrome(str) {
 }
 // console.log(isPalindrome("yashhsay"));
 
-var date = {
-  day: 5,
-  month: 9,
-  year: 2020
-}
-
 
 // converting day from number to sting and adding 0 before date if < 10
 function convertDateToString(date) {
@@ -48,4 +42,46 @@ function convertDateToString(date) {
   return dateStr;
 }
 
-// convertDateToString(date)
+var date = {
+  day: 2,
+  month: 2,
+  year: 2020
+}
+// console.log(convertDateToString(date));
+
+
+
+// date formats
+function getAllDateFormats(date) {
+  var dateStr = convertDateToString(date)
+
+  var ddmmyyyy = dateStr.day + dateStr.month + dateStr.year;
+  var mmddyyyy = dateStr.month + dateStr.day + dateStr.year;
+  var yyyymmdd = dateStr.year + dateStr.month + dateStr.day;
+  var ddmmyy = dateStr.day + dateStr.month + dateStr.year.slice(-2);
+  var mmddyy = dateStr.month + dateStr.day + dateStr.year.slice(-2);;
+  var yymmdd = dateStr.year.slice(-2) + dateStr.month + dateStr.day;
+
+  return [ddmmyyyy, mmddyyyy, yyyymmdd, ddmmyy, mmddyy, yymmdd];
+}
+
+// console.log(getAllDateFormats(date));
+
+
+
+function getPalindromeForAllDateFormat(date) {
+  var listOfPalindromes = getAllDateFormats(date);
+  var palindrome = false;
+
+  for (let i = 0; i < listOfPalindromes.length; i++) {
+    // isPalindrome function will return true or false if true run this:
+    if (isPalindrome(listOfPalindromes[i])) {
+      palindrome = true;
+      break;
+    }
+  }
+  return palindrome;
+}
+
+console.log(getPalindromeForAllDateFormat(date));
+// If the date is palindrome it will return true else it will return false;
