@@ -83,5 +83,30 @@ function getPalindromeForAllDateFormat(date) {
   return palindrome;
 }
 
-console.log(getPalindromeForAllDateFormat(date));
+// console.log(getPalindromeForAllDateFormat(date));
 // If the date is palindrome it will return true else it will return false;
+
+
+
+// function for checking leap year or not
+function checkLeapYear(year) {
+  if (year % 100 === 0 || year % 4 === 0) {
+    return true;
+  }
+  if (year % 4 === 0) {
+    return false;
+  }
+  return false
+}
+// console.log(checkLeapYear(2000));
+// console.log(checkLeapYear(2001))
+
+
+
+
+// For getting next date
+// suppose date is 14-09-2002 it will give 15-09-2002;
+// 31-12-2020 => 01-01-2021
+
+
+
