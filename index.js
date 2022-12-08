@@ -146,7 +146,7 @@ function getNextDate(date) {
 
   // If month become 13 we will make it 1 of next year;
   if (month > 12) {
-    year = year++;
+   year++;
     month = 1;
 
   }
@@ -184,11 +184,11 @@ function getNextPalindromeDate(date) {
   return [counter, nextDate];
 }
 
-var date = {
-  day: 12,
-  month: 03,
-  year: 2130
-}
+// var date = {
+//   day: 12,
+//   month: 03,
+//   year: 2130
+// }
 
 
 // console.log(getNextPalindromeDate(date));
