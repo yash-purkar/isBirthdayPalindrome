@@ -146,7 +146,7 @@ function getNextDate(date) {
 
   // If month become 13 we will make it 1 of next year;
   if (month > 12) {
-   year++;
+    year++;
     month = 1;
 
   }
@@ -219,6 +219,9 @@ function handleClick() {
       var [counter, nextDate] = getNextPalindromeDate(date);
       output.innerText = "It's not palindrome, Next palindrome date is " + nextDate.day + "-" + nextDate.month + "-" + nextDate.year + ", You missed it by " + counter + " days😟";
     }
+  }
+  else {
+    output.innerText = "Enter the date first."
   }
 }
 
